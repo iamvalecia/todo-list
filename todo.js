@@ -6,22 +6,25 @@ function addItem() {
     todoLi = document.createElement('li');
     todoSpan = document.createElement('span');
     todoSpan.style.textDecoration = 'none';
-    todoEditInput = document.createElement('input');
+    var todoEditInput = document.createElement('input');
+    todoEditInput.className = 'todoEditInput'
     todoEditInput.style.display = 'none';
     todoSpan.innerHTML = newTodo.value;
     todoSpan.setAttribute('onclick', 'strikeOut(this)');
     var editButton = document.createElement('button');
     editButton.textContent = "Edit";
+    editButton.className = 'editButton';
     editButton.setAttribute('onclick', 'editTodo(this)');
     var deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
+    deleteButton.textContent = 'X';
     deleteButton.className = 'deleteButton';
     deleteButton.setAttribute('onclick', 'deleteTodo(this)');
     todoUl.appendChild(todoLi);
     todoLi.appendChild(todoEditInput);
     todoLi.appendChild(todoSpan);
-    todoLi.appendChild(editButton);
+// this order helps with CSS 
     todoLi.appendChild(deleteButton);
+    todoLi.appendChild(editButton);
     newTodo.value = "";
     saveList();
 }
@@ -35,7 +38,6 @@ function editTodo(thisEditButton) {
   thisSpan.style.display = 'none';
   thisTodoEditInput.value = thisSpan.textContent;
   thisEditButton.setAttribute('onclick', 'editComplete(this)');
-  // runnung saveList() has no effect
 }
 
 function editComplete(thisEditButton) {
