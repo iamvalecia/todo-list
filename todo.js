@@ -2,6 +2,14 @@
 var todoUl = document.getElementById('todoUl');
 var newTodo = document.getElementById('newTodo');
 
+document.getElementById('newTodo').addEventListener("keydown", addTodoKeyDown, false);
+
+function addTodoKeyDown(e) {
+  if(e.keyCode === 13) {
+    addItem();
+  }
+};
+
 //function allows us to get HTML UTF-8 characters via JS
 function decodeHTML(html) {
 	var txt = document.createElement('textarea');
