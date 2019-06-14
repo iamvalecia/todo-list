@@ -2,6 +2,13 @@
 var todoUl = document.getElementById('todoUl');
 var newTodo = document.getElementById('newTodo');
 
+//function allows us to get HTML UTF-8 characters via JS
+function decodeHTML(html) {
+	var txt = document.createElement('textarea');
+	txt.innerHTML = html;
+	return txt.value;
+};
+
 function addItem() {
     todoLi = document.createElement('li');
     todoSpan = document.createElement('span');
@@ -14,11 +21,11 @@ function addItem() {
     var editButton = document.createElement('button');
     editButton.textContent = decodeHTML('&#x270E');
     editButton.className = 'editButton';
-    editButton.setAttribute('onclick', 'editTodo(this)');
+    editButton.setAttribute('ondblclick', 'editTodo(this)');
     var deleteButton = document.createElement('button');
     deleteButton.textContent = decodeHTML('&#x274c');
     deleteButton.className = 'deleteButton';
-    deleteButton.setAttribute('onclick', 'deleteTodo(this)');
+    deleteButton.setAttribute('ondblclick', 'deleteTodo(this)');
     todoUl.appendChild(todoLi);
     todoLi.appendChild(todoEditInput);
     todoLi.appendChild(todoSpan);
@@ -48,7 +55,7 @@ function editComplete(thisEditButton) {
   thisSpan.textContent = thisTodoEditInput.value;
   thisSpan.style.display = 'inline';
   thisTodoEditInput.style.display = 'none';
-  thisEditButton.setAttribute('onclick', 'editTodo(this)');
+  thisEditButton.setAttribute('ondblclick', 'editTodo(this)');
   saveList();
 }
 
@@ -65,14 +72,6 @@ function strikeOut(todo) {
     }
     saveList();
 }
-
-
-//function allows us to get HTML UTF-8 characters via JS
-function decodeHTML(html) {
-	var txt = document.createElement('textarea');
-	txt.innerHTML = html;
-	return txt.value;
-};
 
 function saveList() {
   window.localStorage.setItem('savedList', todoUl.innerHTML);
