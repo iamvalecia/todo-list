@@ -2,11 +2,12 @@
 var todoUl = document.getElementById('todoUl');
 var newTodo = document.getElementById('newTodo');
 
+//allows keyboard control for addTodoButton
 document.getElementById('newTodo').addEventListener("keydown", addTodoKeyDown, false);
 
 function addTodoKeyDown(e) {
   if(e.keyCode === 13) {
-    addItem();
+    addTodo();
   }
 };
 
@@ -17,7 +18,7 @@ function decodeHTML(html) {
 	return txt.value;
 };
 
-function addItem() {
+function addTodo() {
     todoLi = document.createElement('li');
     todoSpan = document.createElement('span');
     todoSpan.style.textDecoration = 'none';
@@ -49,11 +50,21 @@ function editTodo(thisEditButton) {
   var thisLi = thisEditButton.parentNode;
   var thisTodoEditInput = thisLi.firstChild;
   thisTodoEditInput.style.display = 'inline';
+  thisTodoEditInput.addEventListener("keydown", editCompleteKeyDown, false);
   thisSpan = thisTodoEditInput.nextSibling;
   thisSpan.style.display = 'none';
   thisTodoEditInput.value = thisSpan.textContent;
   thisEditButton.setAttribute('onclick', 'editComplete(this)');
+  thisEditButton.removeAttribute('ondblclick')
 }
+
+// adds keyboard control to editTodoInput
+function editCompleteKeyDown(e) {
+  if(e.keyCode === 13) {
+    var thisParent = this.parentNode;
+    editComplete(thisParent.lastChild);
+  }
+};
 
 function editComplete(thisEditButton) {
   thisEditButton.textContent = decodeHTML('&#x270E');
@@ -64,6 +75,7 @@ function editComplete(thisEditButton) {
   thisSpan.style.display = 'inline';
   thisTodoEditInput.style.display = 'none';
   thisEditButton.setAttribute('ondblclick', 'editTodo(this)');
+  thisEditButton.removeAttribute('onclick')
   saveList();
 }
 
